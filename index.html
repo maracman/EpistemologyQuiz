@@ -8,6 +8,7 @@
     <title>Web App</title>
 
     <style>
+
        /* FONTS */
         h3, h4 {
         font-family: "Helvetica Neue", sans-serif;
@@ -207,6 +208,26 @@
         .challenges {
             display: none;
         }
+        @media only screen and (max-width: 767px) {
+        .section-container {
+            padding: 10px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .discuss-container {
+            padding: 10px;
+        }
+        }
+
+        /* Add another CSS media query to adjust the styles for even smaller screens */
+        @media only screen and (max-width: 479px) {
+        .section-container {
+            padding: 5px;
+        }
+        .discuss-container {
+            padding: 5px;
+        }
+        }
 
     </style>
 </head>
@@ -225,7 +246,7 @@
         The purpose of this webpage is to help you become aware of the epistemological assumptions that shape your judgment and behavior.
         </p>
         <p>
-        By taking this short quiz and carefully considering each question, we hope to encourage you to become more inquiring of the world around you as you continue to learn.        </p>
+        By taking this short quiz and carefully considering each question, we hope to encourage you to become more curious and inquisitive about the world around you as you continue to learn.        </p>
         <p>
         To get the most out of the quiz, we suggest taking 5-10 minutes to reflect on each of the three questions presented.        </p>
         <p>
@@ -245,7 +266,6 @@
         <center><h2>Thinking About the Nature of Truth</h2></center>
         
         <div class="discuss-container">
-            <ol>
             <p>
             <strong>Think for a moment.</strong>
             </p>
@@ -259,7 +279,6 @@
             <br>
             <li>Is there a difference between objective truth and subjective truth? If so, how do we distinguish between them?
             </li>
-            </ol>
             </ol>
         </div>
         <center><button onclick="scrollToSection(2)">After thinking or discussing, click here</button></center>
@@ -281,7 +300,6 @@
     <center><h2>Thinking About the Nature of The Self</h2></center>
         
         <div class="discuss-container">
-            <ol>
             <p>
             <strong>Think for a moment:</strong>
             </p>
@@ -295,7 +313,6 @@
             <br>
             <li>Can we ever have a completely objective understanding of ourselves, or are we always influenced by our subjective perspectives?
             </li>
-            </ol>
             </ol>
         </div>
         <center><button onclick="scrollToSection(5)">After thinking or discussing, click here</button></center>
@@ -318,7 +335,6 @@
     <center><h2>Thinking About the Nature of Perception</h2></center>
     
     <div class="discuss-container">
-        <ol>
         <p>
         <strong>Think for a moment.</strong>
         </p>
@@ -333,7 +349,6 @@
         <li>Is it possible to separate our perceptions from the interpretations and judgments we make about them?
         </li>
         </ol>
-        </ol> 
         </div>
         <center><button onclick="scrollToSection(8)">After thinking or discussing, click here</button></center>
      
