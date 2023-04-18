@@ -76,15 +76,29 @@
 
         /* Header styles */
         header {
-          text-align: center;
-          font-family: Bebas Neue, sans-serif;
-          background-color: #263238;
-          color: #fff;
-          padding: 30px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
+        text-align: center;
+        font-family: Bebas Neue, sans-serif;
+        background-color: #263238;
+        color: #fff;
+        padding: 30px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        }
+
+        /* Set font size for larger screens */
+        @media only screen and (min-width: 768px) {
+        header {
+            font-size: 48px;
+        }
+        }
+
+        /* Set font size for smaller screens */
+        @media only screen and (max-width: 767px) {
+        header {
+            font-size: calc(16px + 4vw);
+        }
         }
 
 
