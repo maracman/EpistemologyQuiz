@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App</title>
+
+    <style>
+       /* FONTS */
+        h3, h4 {
+        font-family: "Helvetica Neue", sans-serif;
+        }
+
+
+
+      /* Body styles */
+ 
+        body {
+          height: 100%;
+          margin: 0;
+          padding-top: 140px;
+          background-color: #b0dde4; 
+          display: flex;
+          justify-content: center;
+          font-family: Verdana, sans-serif;
+          color: #333333;
+
+        }
+        .answer-container:hover {
+            background-color: #e8d8e4;
+        }
+
+        .answer-text {
+            font-weight: bold;
+            font-family: Times, serif;
+            font-size: 1.2em;
+            color: #535266;
+        }
+
+        .collapse {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .collapse + .content {
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .answer-container {
+          background-color: #f2f2f2;
+          padding: 20px;
+          border-radius: 2px;
+          margin-bottom: 10px;
+        }
+
+        .discuss-container {
+          background-color: #f2f2f2;
+          padding: 20px;
+          border-radius: 2px;
+          margin-bottom: 20px;
+        }
+
+        .section-container {
+          width: calc(100% - 40px);
+          max-width: 800px;
+          padding: 60px;
+          background-color: #ffffff;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+        /* Header styles */
+        header {
+          text-align: center;
+          font-family: Bebas Neue, sans-serif;
+          background-color: #263238;
+          color: #fff;
+          padding: 40px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
+
+
+        header h1 {
+          margin: 0;
+          font-size: 36px;
+        }
+
+
+        /* Button styles */
+        button {
+          display: block;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          padding: 10px 20px;
+          background-color: #0066cc;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        #special-button {
+          /* styles specific to the special button */
+          background-color: red;
+        }
+
+        /* Answer styles */
+        .answer {
+          margin: 30px 0;
+          padding: 40px;
+          background-color: #f9f9f9;
+          border-radius: 5px;
+        }
+
+        .answer p {
+          margin: 0;
+        }
+
+        .answer-box {
+          background-color: #f0f0f0;
+          padding: 40px;
+          margin-bottom: 20px;
+        }
+
+        /* Challenges styles */
+        .challenges {
+          margin: 30px 0;
+          padding: 40px;
+          background-color: #ffebee;
+          border-radius: 5px;
+        }
+
+        /* Collapse styles */
+
+        .collapse::after {
+          content: '\002B';
+          color: #777;
+          font-weight: bold;
+          float: right;
+          margin-left: 5px;
+        }
+
+        .collapse.active::after {
+          content: "\2212";
+        }
+
+        .content {
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+        }
+
+        .collapse {
+          position: relative;
+          cursor: pointer;
+          user-select: none;
+          padding-left: 20px;
+        }
+
+        .collapse::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 0px;
+          background-color: #f5f5f5; /* set your desired background color */
+        }
+
+        .collapse:hover::before {
+          background-color: #e1e1e1; /* set your desired hover background color */
+        }
+
+        /* Results styles */
+        .results {
+          margin: 20px 0;
+          padding: 40px;
+          background-color: #eee;
+          border-radius: 5px;
+        }
+
+        .results h2 {
+          margin-top: 0;
+        }
+
+        .collapse {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .collapse + .content {
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .challenges {
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+  <header>
+    <h1 style="font-size: 3rem;">What Are Your</h1>
+    <h1 style="font-size: 3rem;">Epistemological Beliefs?</h1>
+  </header>
+  
+  <div id="section-1" class="section-container">
+        <center><h1>Thinking About the Nature of Truth</h1></center>
+        
+        <div class="discuss-container">
+            <ol>
+            <p>
+            <strong>Think for a moment.</strong>
+            </p>
+            <ol>
+            <br>
+            <li>Can truth be absolute, or is it always relative to a specific context or perspective?
+            <br>
+            <li>How can we determine if something is true?
+            <br>
+            <li>Can two contradictory statements both be true, or must one always be false?
+            <br>
+            <li>Is there a difference between objective truth and subjective truth? If so, how do we distinguish between them?
+            </li>
+            </ol>
+            </ol>
+        </div>
+        <center><button onclick="scrollToSection(2)">After thinking or discussing, click here</button></center>
+    
+  </div>
+
+  <div id="section-2" class="section-container">
+        <center><h3>Which of these sounds most like you?</h3></center>
+        <center>(click one)</center>
+        <br>
+          <div id="question-1-answers"></div>
+  </div>
+
+  <div id="section-3" class="section-container">
+      <div id="question-1-challenges"></div>
+  </div>
+
+  <div id="section-4" class="section-container">
+    <center><h1>Thinking About the Nature of The Self</h1></center>
+        
+        <div class="discuss-container">
+            <ol>
+            <p>
+            <strong>Think for a moment:</strong>
+            </p>
+            <ol>
+            <br>
+            <li>How do we come to know ourselves? Is self-knowledge based on introspection, social feedback, or both?
+            <br>
+            <li>Is the self a stable, unchanging entity, or is it constantly evolving and adapting to new experiences?
+            <br>
+            <li>To what extent are our thoughts, beliefs, and actions determined by our environment, genetics, and personal choices?
+            <br>
+            <li>Can we ever have a completely objective understanding of ourselves, or are we always influenced by our subjective perspectives?
+            </li>
+            </ol>
+            </ol>
+        </div>
+        <center><button onclick="scrollToSection(5)">After thinking or discussing, click here</button></center>
+    
+  </div>
+
+  <div id="section-5" class="section-container">
+        <center><h3>Which of these sounds most like you?</h3></center>
+        <center>(click one)</center>
+        <br>
+      <div id="question-2-answers"></div>
+  </div>
+
+  <div id="section-6" class="section-container">
+      
+      <div id="question-2-challenges"></div>
+  </div>
+
+  <div id="section-7" class="section-container">
+    <center><h1>Thinking About the Nature of Perception</h1></center>
+    
+    <div class="discuss-container">
+        <ol>
+        <p>
+        <strong>Think for a moment.</strong>
+        </p>
+        <br>
+        <ol>
+        <li>How reliable are our senses in providing accurate information about the world?
+        <br>
+        <li>To what extent are our perceptions shaped by our expectations, beliefs, and prior experiences?
+        <br>
+        <li>Can two people perceive the same event or object differently? If so, whose perception is more accurate, or is there no definitive answer?
+        <br>
+        <li>Is it possible to separate our perceptions from the interpretations and judgments we make about them?
+        </li>
+        </ol>
+        </ol> 
+        </div>
+        <center><button onclick="scrollToSection(8)">After thinking or discussing, click here</button></center>
+     
+  </div>
+
+  <div id="section-8" class="section-container">
+        <center><h3>Which of these sounds most like you?</h3></center>
+        <center>(click one)</center>
+        <br>
+      <div id="question-3-answers"></div>
+  </div>
+
+  <div id="section-9" class="section-container">
+      
+      <div id="question-3-challenges"></div>
+  </div>
+
+  <div id="section-10" class="section-container">
+      <center><h1>Results</h1></center>
+      <div id="results-content"></div>
+      <h4>Do these set of beliefs hold together? What should it mean if you find a contradiction in your beliefs?</h4>
+      <p>
+      <center><button onclick="scrollToSection(1)">Restart Quiz</button></center>
+      </p>
+  </div>
+
+    <script>
+        const questionData = {
+            "1": [
+            {
+            "answer": `
+            <em>"Truth is a reflection of reality."</em>
+            `,
+            "description": `
+            <p>
+            <em>Correspondence Theory:</em> holds that truth is not just a matter of personal opinion or belief, but rather is grounded in the objective reality of the world. In other words, truth is a relationship between a proposition and the way things actually are in the world. For instance, the statement "the earth orbits the sun" is true because it corresponds with the actual astronomical relationship between the two celestial bodies.
+            </p>
+            `,
+            "challenges": `
+            <h4 id="challenges-to-the-correspondence-theory-of-truth-">Challenges to the Correspondence Theory of Truth:</h4>
+            
+            <h3 id="1-you-cannot-get-an-ought-from-an-is-"><strong>1. <em>You cannot get an ought from an is.</em></strong></h3>
+            
+            <p>The correspondence theory of truth doesn’t encompass, motivations and ideals. In other words, there is no way to derive how someone should act from what we can observe about what “is” in the world. Many people believe in the existence of objective moral truths, such as &quot;killing is wrong”, the opinion that such values are objective and universal is not likely to be defensible from a pure correspondence theory of truth. Can you think of how? </p>
+            
+            <h3 id="2-what-was-once-considered-true-in-the-past-may-be-proven-false-in-the-future-"><strong>2. <em>What was once considered true in the past, may be proven false in the future.</em></strong></h3>
+            
+            <p>For instance, people once believed the Earth was flat, but now we know it is round. How do we know what we observe to be the case now is, in fact true? And what about people who have differing opinions, who’s authority are you going to take on things that you cannot observe.</p>
+            
+            <h3 id="3-correspondence-theory-falls-prey-to-circular-reasoning-"><strong>3. <em>Correspondence theory falls prey to circular reasoning.</em></strong></h3>
+            </ol>
+            <p> Circular reasoning is a logical fallacy that occurs when the conclusion of an argument is used as one of its premises.</p>
+            <ul>
+            <li>Premise: The Correspondence Theory of truth states that a statement is true if it corresponds to a fact or state of affairs in the world.   </li>
+            <li>Statement: &quot;The Correspondence Theory of truth is true.&quot;</li>
+            <li>Justification: The statement &quot;The Correspondence Theory of truth is true&quot; is true because it corresponds to a fact in the world, which is that the Correspondence Theory of truth is true.</li>
+            </ul>
+            <p>The argument fails to provide independent evidence or reasons to support the conclusion, relying instead on the conclusion itself as its own justification.</p>
+            
+            `,
+            "implications": `
+            <h2>Truth</h2>
+            <p>
+            <strong>You hold most closely to the Correspondence Theory of truth.</strong>
+            </p>
+            <p>
+            One famous thinker who had a Correspondence Theory of truth is Bertrand Russell, a British philosopher, logician, mathematician, and social critic.
+            </p>
+            <p>
+            One important idea that Russell advanced in his philosophy is his theory of descriptions. According to this theory, definite descriptions such as "the present king of France" do not actually refer to anything if there is no such entity that satisfies the description. This theory has had a significant impact on the philosophy of language and has been widely discussed and debated by philosophers.
+            </p>            `
+  
+            },
+            {
+            "answer": `
+            <em>"Truth is consistency within a system of beliefs."</em>
+            `,
+            "description": ` 
+            <p>
+
+            <em>Coherence Theory:</em> According to this theory, a belief is true if it coherently fits within an existing system of beliefs. Truth is determined by the logical consistency and coherence of a proposition with other accepted propositions. This theory emphasises the interconnectedness of beliefs and suggests that truth is relative to a particular conceptual framework or belief system.
+            </p>
+            <p>
+
+            </p>
+
+            `,
+            "challenges": `
+
+
+            <h4>Challenges to the coherence theory of truth:</h4>
+
+
+            <h3>1. <em>Coherent theories might not match up to what we observe about the world.</em></h3>
+
+
+            <p>
+            The fantasy worlds of J.K Rowling, George R.R. Martin or J.R.R Tolkien are surprisingly fleshed out and coherent, yet what would you think if one of your friends suddenly professed claimed that they were true and accurate depictions of reality? On what grounds would you coax them back to the world they were actually living in?
+            </p>
+            <h3>2. <em>What do you do if your belief system isn’t coherent?</em></h3>
+
+
+            <p>
+            Arguably very few people in this world have an entirely coherent system of beliefs. Imagine, for instance, you hold two competing systems such that exactly 50% of your beliefs adhere to one system and 50% to another. What criteria would you use to decide which half of your beliefs to relinquish? The coherence theory doesn’t appear to hold the solution.
+            </p>
+            <p>
+            Even if a very small percentage of your beliefs were in conflict with the others, should you really get rid of them? perhaps those small sets of beliefs are the beliefs that you get the most practical use from and help you to live day to day.
+            </p>
+            `,
+            "implications": `
+            <h2>Truth</h2>
+            <p>
+            <strong>You hold most closely to the Coherence Theory of truth.</strong>
+            </p>
+            <p>
+            This theory asserts that truth is a matter of coherence and consistency with a broader system of beliefs. Some famous thinkers associated with this theory include Gottfried Wilhelm Leibniz and Susan Haack.
+            </p>
+            <p>
+
+                Gottfried Wilhelm Leibniz argued against the prevailing philosophical view of his time known as the "materialism" or "mechanistic worldview" and argued that truth is instead a matter of coherence within a system of interconnected beliefs. He believed that all truths are related to each other and that there is a fundamental harmony between them.
+            </p>
+            <p>
+
+                Haack, on the other hand, developed a version of the coherence theory called "foundherentism." She argued that truth is a matter of coherence with both experience and the web of beliefs.
+            </p>
+            `
+            },
+            {
+            "answer": `
+            <em>"Truth is what works best in practice."</em>
+            `,
+            "description": `
+            <p>
+            <em>Pragmatic Theory: </em>This theory argues that truth is determined by the practical consequences and usefulness of a belief. If accepting a belief leads to successful outcomes or helps solve problems, it is considered true. Pragmatic theorists emphasise the functional and instrumental aspects of truth rather than its relationship to objective reality or coherence within a belief system.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the Pragmatic Theory of truth:</h4>
+
+
+            <h3><em>1. Misleading pragmatisms.</em></h3>
+
+
+            <p>
+            The belief in lucky charms or superstitions can be useful for some people, providing confidence or control in uncertain situations. However, there may be no objective evidence to support the effectiveness of these charms or superstitions, making it difficult to reconcile their practical usefulness with their lack of correspondence to reality.
+            </p>
+            <h3><em>2. Things that we see are true but hold no practical purpose.</em></h3>
+
+
+            <p>
+            Much of what we observe we say is true because we can predict it with more or less 100% certainty, but holds no practical purpose. Scientific discovery is made with this in mind, it is interested in things being true because they are replicable, driven by curiosity, practical applications of scientific discovery often comes much later, yet we would probably still say that it is true before this point.
+            </p>
+            <h3><em>3. Competing motivations</em></h3>
+
+
+            <p>
+            Pragmatism is dependent on motivational end-points. What if someone’s motivation was chaos and destruction? Even the basic building blocks of causation might hold no practical use to them. For instance, the truth of the car hurtling towards them as they cross the road cannot be derived from their standpoint. Perhaps then, pragmatic truth can only be the case as far as we are loosely bound together by humanity’s common goals of survival and reproduction.
+            </p>
+            `,
+            "implications":`
+            <h2>Truth</h2>        
+            <p>
+            <strong>You hold most closely to the Pragmatic Theory of truth (Pragmatism).</strong>
+            </p>
+            <p>
+            This theory asserts that truth is a matter of usefulness or practicality. Some famous thinkers associated with this theory include Charles Sanders Peirce and William James.
+            </p>
+            <p>
+
+                Peirce and James were arguing against a philosophical movement known as positivism or scientism. Rejecting this view, they argued that there were other valid forms of inquiry beyond science, such as philosophy and psychology, that could lead to meaningful knowledge. 
+            </p>
+            <p>
+
+                Pierce and James believed that truth was dictated by what found was pragmatic, but disagreed about the motivation. Peirce argued that truth is a matter of what helps us successfully predict and control the world. James, on the other hand, argued that truth is a matter of what satisfies our needs and desires. 
+            </p>
+             `
+            },
+            {
+            "answer":`
+            <em>"Truth is what we all agree upon."</em>
+            `,
+            "description":`
+            <p>
+
+            <em>Consensus Theory:</em> This theory states that truth is determined by widespread agreement or consensus among a group. In this view, truth is socially constructed and can change over time as people's beliefs and opinions evolve. The consensus theory suggests that there is no absolute, objective truth, but rather that truth is relative to the beliefs of a particular community or culture.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the Consensus Theory of truth:</h4>
+
+
+            <h3><em>1. Consensus is constantly changing</em></h3>
+
+
+            <p>
+            At one time, the consensus was that the Earth is flat, which was considered true within that historical context. How can we say that it <em>was</em> true then but is <em>no longer</em> true when nothing about the form and function of the earth and surrounding bodies has altered? External reality in this framework is bound up in the triviality of opinion, and historically establishing what is actually “true” is how we challenge trivially held positions.
+            </p>
+            <h3><em>2. Where do we draw the social boundaries?</em></h3>
+
+
+            <p>
+            Under this paradigm, what is true depends on who you include in the group by which you are measuring the consensus. In a sample of one, whatever you believe is automatically the truth, as we expand the boundary the measurement becomes more difficult. Another question you might ask is whether or not, under this paradigm, there is a perfect democracy, or should some people, perhaps those with the relevant expertise, count more than others? And might we also need to include the beliefs of possible alien intelligences, how would we measure these if we don't know about their existence? 
+            </p>
+            `,
+            "implications":`
+            <h2>Truth</h2>
+            <p>
+            <strong>You hold most closely to the Consensus Theory of truth.</strong>
+            </p>
+            <p>
+            This theory asserts that truth is a matter of agreement or consensus among a group of people. A famous thinker associated with this theory was Jürgen Habermas.
+            </p>
+            <p>
+
+                Habermas developed a version of the consensus theory called "communicative action." He argued that truth is a matter of agreement reached through rational and open dialogue.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"Truth is a product of our interpretations."</em>
+            `,
+            "description":`
+            <p>
+
+            <em>Constructivist Theory: </em>According to this theory, truth is a human-made construct that arises from our interpretations and understandings of the world. Constructivist theorists argue that there is no objective reality independent of our perceptions and that truth is created through our individual and collective cognitive processes.
+            </p>
+            `,
+            "challenges":`
+            
+            <h4>Challenges to the Constructivist Theory of truth:</h4>
+
+
+            <h3><em>1. How can we communicate about truth?</em></h3>
+
+
+            <p>
+            If truth is a human-made construct that arises from our interpretations and understandings of the world, then how can we communicate about it with others who may have different interpretations and understandings? It seems difficult to have any meaningful discourse or exchange of ideas if there is no objective reality to ground our claims.
+            </p>
+            <h3><em>2. What about scientific discoveries?</em></h3>
+
+
+            <p>
+            Scientific discoveries have been made throughout history that have challenged and even overturned our previous interpretations and understandings of the world. If truth is solely a product of our interpretations, then how can we explain the objective and replicable nature of scientific discoveries?
+            </p>
+            `,
+            "implications":`
+            <h2>Truth</h2>
+            <p>
+            <strong>You hold most closely to the Constructivist Theory of truth.</strong>
+            </p>
+            <p>
+            This theory asserts that truth is a matter of construction or creation by the mind. Some famous thinkers associated with this theory include Jean Piaget and Nelson Goodman.
+            </p>
+            <p>
+
+                Piaget argued that truth is not discovered but rather constructed by the mind as it interacts with the environment. He believed that the mind actively constructs reality based on its own structures and processes.
+            </p>
+            <p>
+
+                Goodman, on the other hand, developed a version of the constructivist theory called "constructive nominalism." He argued that truth is a matter of convention and that different systems of classification and reference can be equally valid.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"Truth is merely a linguistic convenience."</em>
+            `,
+            "description":`
+            <p>
+
+            <em>Deflationary Theory:</em> This theory asserts that truth is a simple, unanalyzable property of propositions and that there is no underlying nature or essence to truth. Deflationary theorists argue that to say a proposition is true is just to assert the proposition itself, without adding any substantive content or meaning.
+            </p>
+            `,
+            "challenges":`
+                        
+
+            <h4>Challenges to the Deflationary Theory of truth:</h4>
+
+
+            <h3><em>1. How do we differentiate between true and false statements?</em></h3>
+
+
+            <p>
+            If truth is merely a linguistic convenience and there is no underlying nature or essence to truth, then how do we differentiate between true and false statements? Deflationary theorists would argue that saying a proposition is true is just to assert the proposition itself, but this does not provide criteria for distinguishing between true and false propositions.
+            </p>
+            <h3><em>2. Is there a difference between assertion and truth?</em></h3>
+
+
+            <p>
+            If truth is merely a linguistic convenience, then is there any difference between asserting something and saying it is true? It seems that there must be some underlying criteria or justification for asserting something as true, otherwise the statement "it is true" would be meaningless.
+            </p>
+            `,
+            "implications":`
+            
+            <h2>Truth</h2>
+            <p>
+            <strong>You hold most closely to the Deflationary theory of truth.</strong>
+            </p>
+            <p>
+            This theory asserts that truth is a trivial concept that is not worth analysing. Some famous thinkers associated with this theory include W.V. Quine and Paul Horwich.
+            </p>
+            <p>
+
+                Quine argued that the concept of truth is not a substantive one but rather a logical device that is used to express complex propositions in simpler terms. He believed that the concept of truth does not require a separate theory or analysis.
+            </p>
+            <p>
+
+                Horwich, on the other hand, developed a version of the deflationary theory called "minimalism." He argued that truth is a simple and unanalysable property that is not worth further investigation.
+            </p>
+            `
+            }
+            ],
+            "2":[
+            {
+            "answer":`
+            <em>"The self is a thinking mind distinct from the physical body."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Substance Dualism:  </em>This position, often associated with René Descartes, posits that the self is composed of two distinct substances: the mind (or soul) and the body. The mind is considered the true essence of the self, characterized by thoughts, beliefs, and consciousness, while the body is a separate, physical entity.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the Substance dualism view of the self</h4>
+
+
+            <h3><em>1. It seems sort of antiquated</em></h3>
+
+
+            <p>
+            Descartes' famous phrase, "Cogito, ergo sum" (I think, therefore I am), emphasizes the primacy of the mind in defining the self. However, modern neuroscience has shown that many mental processes are closely tied to brain activity and bodily functions. This connection challenges the idea of a separate, non-physical mind or soul as the essence of the self.
+            </p>
+            <h3><em>2. The interaction problem</em></h3>
+
+
+            <p>
+            The problem of interaction in substance dualism refers to the challenge of explaining how the immaterial mind can interact with the physical brain. The issue here is that mental events are not reducible to physical events, yet they seem to influence the workings of the brain, which is a physical organ.
+            </p>
+            <p>
+            To solve this problem, substance dualism would need to either redefine our understanding of the physical to include a mechanism for interaction with the non-physical, or posit a third substance that serves as the point of interaction between the mind and body. However, this creates new problems, such as defining this third substance and how it relates to the mind and body.
+            </p>
+            <p>
+            As we delve deeper into this problem, we are faced with the inevitability of defining everything as either mental or material and, therefore, denying the existence of one or the other. 
+            </p>
+            `,
+            "implications": `
+            <h2>The Self</h2>           
+            <p>
+            <strong>You hold most closely to the Substance dualism view of the Self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self or mind is a non-physical substance that is distinct from the physical body. Some famous thinkers associated with this theory include René Descartes and Gottfried Leibniz.
+            </p>
+            <p>
+
+                Descartes argued that the self is a non-physical entity that can exist independently of the body. He believed that the mind and body are separate but interact through the pineal gland in the brain.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"The self is the product of brain activity and physical processes."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Materialism (Physicalism): </em>According to this perspective, the self is reducible to physical matter and processes, such as brain activity and neural connections. Materialists argue that mental states, including consciousness and self-awareness, are products of complex physical systems, and there is no need to posit a separate mental substance or soul.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the Materialist view of the self</h4>
+
+
+            <h3><em>1. What about subjective experience</em></h3>
+
+
+            <p>
+            While materialism posits that consciousness and self-awareness are products of complex physical systems, it struggles to explain the subjective nature of conscious experience, known as the "hard problem of consciousness". That is that there is something “it is like” to be you or me, something that we do not attribute to mechanical processes. Under this definition, we cannot say that a clothes iron or a ballpoint pen do not have their own senses of self. 
+            </p>
+            <h3><em>2. The Explanatory Gap</em></h3>
+
+
+            <p>
+            The explanatory gap refers to the impossibility of explaining subjective experiences through appeal to mechanical processes alone. Indeed the unique features of consciousness seem to resist reduction to any physical explanations. Additionally, as materialism can describe all observed phenomena through cause and effect without evoking a need for consciousness, it becomes a closed loop leaving phenomenal experience out altogether.
+            </p>
+            <h3><em>3. The Problem of Mental Causation </em></h3>
+
+
+            <p>
+            Materialism may also struggle to account for how mental events, such as beliefs and desires, can cause things to happen in the material world. If mental events are reducible to physical events in the brain, then how can they cause physical events outside of the brain, such as the movement of the arm?
+            </p>
+            `,
+            "implications": `
+
+            <h2>The Self</h2>
+            <p>
+            <strong>You hold most closely to the Materialist view of the Self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self or mind is a product of the physical brain and nervous system. Some famous thinkers associated with this theory include Thomas Hobbes and John Stuart Mill.
+            </p>
+            <p>
+
+                Hobbes argued that the mind is simply a material object that can be explained by the laws of physics and chemistry. He believed that all mental phenomena can be reduced to physical processes in the brain.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"The self is a continuous stream of memories and mental states."</em>
+            `,
+            "description": `
+                        
+
+            <p>
+
+            <em>Psychological Continuity: </em>This view emphasises the role of psychological factors, such as memory, personality, and mental states, in defining the self. According to this perspective, the self is a continuous psychological entity that persists over time, despite changes in the body and the environment. Continuity of memory and personal identity are central to this conception of the self.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the Psychologically continuous view of the self:</h4>
+
+
+            <h3><em>1. Memory loss	</em></h3>
+
+
+            <p>
+            People with amnesia or late-stage dementia often lose large portions of their memory, yet they still possess a sense of self and personal identity. Is there a certain degree to which someone can lose old memories or their ability to create new memories at which they stop having a self
+            </p>
+            <h3><em>2. The implanted memory thought experiment </em></h3>
+
+
+            <p>
+            If all your memories were copied and implanted into a “blank slate” brain, is that person equally you? What then if these two people with the same memories and experiences go off and lead completely different lives? Which one is you? The theory of psychological continuity does not appear to have an answer for this hypothetical scenario.
+            </p>
+            `,
+            "implications": `
+            <h2>The Self</h2>
+            <p>
+            <strong>You hold most closely to the Psychologically Continuous view of the self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self is a continuous stream of psychological experiences and events that give rise to a sense of personal identity. Some famous thinkers associated with this theory include David Hume and Derek Parfit.
+            </p>
+            <p>
+
+                Hume argued that the self is nothing more than a collection of psychological experiences and impressions that are constantly changing. He believed that there is no fixed, unchanging self that persists over time.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"The self is a collection of ever-changing perceptions and experiences."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Bundle Theory:</em> Associated with David Hume, this position suggests that the self is not a single, unified entity but rather a bundle of perceptions, experiences, and mental states that are constantly changing. In this view, there is no stable, enduring self but rather a collection of psychological phenomena that give the illusion of a continuous, unified identity.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h4>Challenges to Bundle Theory</h4>
+
+
+            <h3><em>1. The stable sense of self</em></h3>
+
+
+            <p>
+            If we are merely a bundle of constantly changing mental states and factors, then it is unclear how we can account for a sense of stable identity that persists over time and allows us to recognise ourselves as the same person from one moment to the next. 
+            </p>
+            <h3><em>2. Societal justice</em></h3>
+
+
+            <p>
+            If people are merely a bundle of selves and there is no single, unchanging self, then it may be difficult to justify holding a person accountable for their actions. No part of a person has executive control and can be deemed truly responsible.
+            </p>
+            <h3><em>3. Bundle theory and sense of conscience</em></h3>
+
+
+            <p>
+            If we are merely a collection of constantly changing mental states and factors, how can we explain the existence of a consistent sense of right and wrong that guides our behaviour? Conscience suggests that there is a stable and enduring moral compass within us that guides our actions and decisions, regardless of the shifting mental states and factors that make up our overall experience. This sense of right and wrong seems tied to a unified and stable sense of self that persists over time, rather than a constantly changing collection of mental states and factors.
+            </p>
+            `,
+            "implications": `
+
+            <h2>The Self</h2>
+            <p>
+            <strong>You hold most closely to the Bundle Theory view of the self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self is nothing more than a collection or bundle of mental states and processes. Some famous thinkers associated with this theory include Buddha and David Lewis.
+            </p>
+            <p>
+
+                Buddha argued that there is no self or soul that exists independently of mental states and processes. He believed that the self is a constantly changing and impermanent phenomenon. According to Lewis, the self is not a substance or entity that endures over time, but rather a collection of experiences that are loosely connected by causal relations.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"The self is shaped by social and cultural factors."</em>
+            `,
+            "description": `
+                        
+            <p>
+
+            <em>Social Constructionism: </em>This perspective argues that the self is a product of social and cultural factors, including language, norms, values, and social interactions. According to this view, the self exists only as a construct of our relationships with others and the roles we play in society, rather than being an intrinsic, unchangable property of the individual.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the social constructionist view of the self:</h4>
+
+
+            <h3><em> 1. It assumes we can already determine the boundaries between persons (Begging the question fallacy). </em></h3>
+
+
+            <p>
+            The socially constructed view of the self requires as part of its premise that we are able to define the boundaries between individuals, i.e where we end and others begin. This is at the core of what the question “What is the self?” is trying to answer. This is a common fallacy called “begging the question,”  when an argument's premises assume the truth of the conclusion, instead of supporting it
+            </p>
+            <h3><em> 2. The self can’t exist in isolation</em></h3>
+
+
+            <p>
+            Social constructionism suggests that if we weren’t embedded in societies and cultures, the self wouldn’t exist. Yet it seems as though our sense of self would persist in isolation through our own introspection and our ability to interact with the environment around us.
+            </p>
+            `,
+            "implications": `
+            <h2>The Self</h2>
+            <p>
+            <strong>You hold most closely to the Social Constructionist view of the self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self is a product of social and cultural processes and practices. Some famous thinkers associated with this theory include Michel Foucault and Judith Butler.
+            </p>
+            <p>
+
+                Foucault argued that the self is a historical and cultural construction that is shaped by power relations and discourses. He believed that there is no fixed or essential self that exists independently of social and cultural norms.
+            </p>
+                        `
+            },
+            {
+            "answer":`
+            <em>"The self is the story we tell about our lives."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Narrative Self:</em> This position posits that the self is a story that we create and continuously revise throughout our lives. According to this perspective, our sense of self is shaped by the narrative we construct about our experiences, beliefs, goals, and relationships, which helps us make sense of our lives and create a coherent personal identity.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenge to the idea of a narrative self</h4>
+
+
+            <h3><em>Narrative isn’t a necessary part of the self</em></h3>
+
+
+            <p>
+            Some people may not have a fully formed narrative about themselves, or their narrative might change completely from one moment to the next. It may even be argued that connecting all your actions to a “self-narrative” is not good for mental well-being and character growth. Think for a moment, can you have a sense of self without reflecting on a personal narrative? Or, do those with amnesia lose their sense of self? If this were the case, how would they continue to behave according to their own wants and wishes?
+            </p>
+            `,
+            "implications": `
+            <h2>The Self</h2>
+            <p>
+            <strong>You hold most closely to the idea of a Narrative Self.</strong>
+            </p>
+            <p>
+            This theory asserts that the self is a product of personal stories and narratives that individuals construct about themselves. Some famous thinkers associated with this theory include Dan McAdams and Jerome Bruner.
+            </p>
+            <p>
+
+                McAdams argued that individuals create a sense of self by constructing personal narratives that give meaning and coherence to their experiences. He believed that these narratives are shaped by cultural and social factors as well as individual temperament and personality.
+            </p>
+                        `
+            },
+            {
+            "answer":`
+            <em>"The self is an illusion of a persistent identity."</em>
+            `,
+            "description": `
+                        
+            <p>
+
+            <em>No-Self Theory: </em>Found in some Eastern philosophical traditions, such as Buddhism, this view asserts that there is no permanent, unchanging self. Instead, the self is an impermanent, ever-changing collection of physical and mental processes. The idea of a stable, enduring self is seen as an illusion that contributes to suffering and attachment.
+            </p>
+            `,
+            "challenges":`
+
+            <h4>Challenges to the No-Self Theory</h4>
+
+
+            <h3><em>1. The Reality of personal identity</em></h3>
+
+
+            <p>
+            The no-self theory challenges the idea of a stable and enduring self, which may conflict with the reality of personal identity and our experiences of being an individual with a sense of self. Individuals may struggle to make sense of their experiences and construct a coherent narrative about their lives without a stable sense of self.
+            </p>
+            <h3><em>2. The Role of personal responsibility</em></h3>
+
+
+            <p>
+            The no-self theory challenges the idea of personal agency and responsibility, which may have practical implications in areas such as ethics, morality, and decision-making. It may be difficult to justify holding individuals accountable for their actions without a stable sense of self and personal identity. Additionally, it may lead to a sense of nihilism or apathy towards personal responsibility and the impact of one's actions.
+            </p>
+            `,
+            "implications": `
+            <h2>The Self</h2>
+
+            <p>
+            <strong>You hold most closely to the No-Self Theory.</strong>
+            </p>
+            <p>
+            This theory asserts that there is no self or ego that exists independently of mental states and processes. Some famous thinkers associated with this theory include Nagarjuna and Douglas Hofstadter.
+            </p>
+            <p>
+            Nagarjuna argued that the self is an illusion that arises from the interdependence of mental states and processes. He believed that the self is nothing more than a concept or label that we use to describe the flow of experience.
+            </p>
+            `
+            }
+            ],
+            "3":[
+            {
+            "answer":`
+            <em>"Perception is a direct window to reality."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Direct Realism (Naive Realism): </em>This philosophical view holds that our perception of the world is reliable and provides direct, unmediated access to reality. According to this perspective, the objects and properties we perceive are precise as they appear, and our sensory experiences are accurate representations of the external world.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h3><em>Challenges to the Direct Realism view of perception</em></h3>
+
+
+            <p>
+            Countless experiments have been able to show that the integration of the signals from our sensory inputs leads to approximations that in many cases, become untrustworthy representations of our environment. For instance, optical illusions like the Müller-Lyer illusion, where, two lines of equal length appear to be different lengths due to the orientation of arrow-like segments at their ends.
+            </p>
+            `,
+            "implications": `
+            <h2>Perception</h2>
+            <p>
+            <strong>You hold most closely to the Direct Realism view of perception.</strong> 
+            </p>
+            <p>            
+            This theory asserts that perception is a direct and unmediated contact between the perceiver and the external world. Some famous thinkers associated with this theory include Aristotle and John Locke.
+            </p>
+            <p>
+
+                Aristotle believed that perception involves the actualization of potentialities in the mind, which allows the perceiver to directly perceive the object as it is in the external world.
+            </p>
+            <p>
+
+                Locke argued that perception involves a direct and immediate perception of the primary qualities of an object, such as its size, shape, and motion
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"Perception is a mental representation of the external world."</em>
+            `,
+            "description": `
+            <p>
+
+            <em>Indirect Realism (Representationalism):</em> This perspective posits that our perception of the world is mediated by mental representations or internal models of external reality. While perception is generally reliable, it may not always perfectly reflect the external world. Indirect realism acknowledges the possibility of perceptual errors, illusions, or biases that can lead to inaccuracies in our understanding of the world.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h4>Challenges to the Representationalist view of perception:</h4>
+
+
+            <h3><em>1. Endless Representations</em></h3>
+
+
+            <p>
+            Representationalism says that our minds create internal models of the world around us. But how can we know if these models are accurate? To check if our models are correct, we would need to create more mental models to compare them. This creates a never-ending cycle of models, making it impossible to know if our perception is accurate. Think about it like this: imagine trying to decide if a photo is accurate by comparing it to another photo, and then comparing that photo to another photo, and so on - you would never be able to tell if any of the photos are truly accurate.
+            </p>
+            <h3><em>2. How Mental Models Become Experience</em></h3>
+
+
+            <p>
+            Representationalism doesn't explain how our mental models turn into conscious experiences. For example, we know that we have mental models of objects like chairs, but how does this mental model become the experience of seeing and sitting on a chair? The theory doesn't provide a clear answer to this question.
+            </p>
+            <h3><em>3. Sharing Experiences with Others</em></h3>
+
+
+            <p>
+            Philosopher Ludwig Wittgenstein raised a challenge called the "Private Language Argument." If our perceptions are based only on our personal mental models, how can we explain the way we communicate and understand each other's experiences? If our mental models are unique to each of us, how can we share our experiences with others and understand what they are trying to tell us about their own experiences? 
+            </p>
+            <p>
+            Imagine you and a friend are looking at a painting. You both have your own mental models of the painting, based on your perceptions. You might describe the painting as having bright, vivid colours, while your friend might describe it as having softer, more muted colours. If your mental models are unique and private to each of you, how can you be sure that you're both talking about the same painting and not just describing your own individual perceptions?
+            </p>
+            `,
+            "implications": `
+            <h2>Perception</h2>
+
+            <p>
+            <strong>You hold most closely to the Representationalist view of perception. </strong>
+            </p>
+            <p>
+            This theory asserts that perception involves the construction of mental representations that stand in a relation to external objects. Some famous thinkers associated with this theory include Immanuel Kant and Jerry Fodor.
+            </p>
+            <p>
+
+                Kant believed that perception involves the synthesis of sensory data and the imposition of a conceptual framework by the mind. He argued that perception is not a passive process but rather an active construction by the mind.
+            </p>
+            <p>
+
+                Fodor developed a version of the representationalist theory called "modularity." He argued that perception involves the operation of domain-specific modules that are specialized for different types of information, such as color, shape, and spatial relations.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em> "Perception is an active construction of our experiences."</em>
+            `,
+            "description": `
+
+
+            <p>
+
+            <em>Constructivism:</em> This view emphasises that perception is an active process of constructing our experience of reality based on sensory input and prior knowledge, expectations, and beliefs. According to constructivism, our perception is not a passive reflection of the external world but rather a product of our cognitive processes. This perspective suggests that perception can be influenced by individual differences and cultural factors, which may affect its reliability.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h4>Challenges to the Constructivist view of perception:</h4>
+
+
+            <h3><em>1. The Objectivity of Perception</em></h3>
+
+
+            <p>
+            One challenge to constructivism is the question of how we can have objective perceptions of the world if our perceptions are influenced by our experiences and beliefs. If two people perceive the same event or object differently due to their individual backgrounds, how can we determine whose perception is more accurate, or if there even is a "correct" perception? For example, imagine two people looking at an optical illusion. One person sees the illusion, while the other doesn't. How do we decide whose perception is more accurate?
+            </p>
+            <h3><em>2. Innate Perceptual Abilities</em></h3>
+
+
+            <p>
+            Constructivism struggles to explain how infants and young children can perceive the world accurately before they have had many experiences to shape their perceptions. If our perceptions are constructed based on our experiences, how do infants and young children make sense of the world around them? Think about a baby who can recognize their mother's face - how do they do this if they don't yet have many experiences to build their perceptions?
+            </p>
+            <h3><em>3. Shared Perceptions</em></h3>
+
+
+            <p>
+            Another challenge to constructivism is the fact that people often share similar perceptions despite having different experiences and backgrounds. If our perceptions are built from our individual experiences, why do we often agree on what we perceive? For example, imagine a group of people looking at a landscape. Even though each person has different experiences, they might
+            </p>
+            `,
+            "implications": `
+            <h2>Perception</h2>
+
+            <p>
+            <strong>You hold most closely to the Constructivist view of perception. </strong>
+            </p>
+            <p>           
+            This theory asserts that perception is a construction of the mind that is based on sensory input and prior knowledge. Some famous thinkers associated with this theory include Jean Piaget and Eleanor Gibson.
+            </p>
+            <p>
+
+                Piaget argued that perception involves the active construction of reality by the mind. He believed that perception is influenced by the perceiver's previous experiences, cognitive structures, and developmental stage.
+            </p>
+            <p>
+
+                Gibson developed a version of the constructivist theory called "ecological psychology." She argued that perception involves a direct and dynamic engagement between the perceiver and the environment, and that perception is shaped by the affordances and constraints of the environment.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"Perception is an adaptive tool for survival."</em>
+            `,
+            "description": `
+
+
+            <p>
+
+            <em>Evolutionary Perspective:</em> From an evolutionary standpoint, perception is considered a functional adaptation that has developed to help organisms navigate and survive in their environments. According to this view, the reliability of perception is shaped by its utility in promoting survival and reproduction. This perspective acknowledges that perception may not always provide an entirely accurate representation of the world, but it is generally reliable enough to support adaptive behaviours.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h4>Challenges to the Evolutionary Perspective of perception</h4>
+
+
+            <h3><em>1. The Limits of Adaptation</em></h3>
+
+
+            <p>
+            The evolutionary perspective of perception assumes that our perceptual abilities have evolved to help us survive in our environment. However, this assumption may not hold up in cases where our environment changes faster than our ability to adapt. For example, humans are not well adapted to modern technologies like cars or computers, which can lead to accidents or errors in perception. This suggests that our perceptual abilities may have limits and cannot always keep up with changes in our environment.
+            </p>
+            <h3><em>2. How, then, do we trust our perceptions?</em></h3>
+
+
+            <p>
+            If our cognitive faculties, including perception, have evolved for survival purposes, without necessarily representing the external environment, then our perceptions would be incredibly context-dependent to the survival situation. Philosopher Alvin Plantinga argues that It seems unlikely in this case that we could have ended up with cognitive faculties that are generalisable and reliable enough for us to have attained the capacity for logical reasoning and the observation of universal laws.
+            </p>
+            `,
+            "implications": `
+            <h2>Perception</h2>
+
+            <p>
+            <strong>You hold most closely to the Evolutionary Perspective of perception.</strong> 
+            </p>
+            <p>            
+            This theory asserts that perception is shaped by evolutionary pressures and that it has adaptive value for survival and reproduction. Some famous thinkers associated with this theory include Charles Darwin and David Marr.
+            </p>
+            <p>
+
+                Darwin believed that perception evolved through natural selection and that it has adaptive value for survival and reproduction. He argued that perception is shaped by the demands of the environment and that it is optimized for the perceiver's survival.
+            </p>
+            <p>
+
+                Marr, on the other hand, developed a computational theory of vision that is based on the idea that perception involves the extraction of information from the environment that is relevant for the perceiver's goals and needs.
+            </p>
+            `
+            },
+            {
+            "answer":`
+            <em>"Perception is a complex interplay of brain processes."</em>
+            `,
+            "description": `
+
+            <p>
+            <em>Cognitive Neuroscience:</em> Research in cognitive neuroscience has shed light on the neural mechanisms underlying perception, revealing that perception is an intricate process involving multiple brain regions and complex interactions between sensory input, attention, memory, and cognitive processing. This research suggests that the reliability of perception depends on a variety of factors, including the quality of sensory input, the integrity of neural pathways, and individual differences in cognitive functioning.
+            </p>
+            `,
+            "challenges":`
+
+
+            <h4>Challenges to the Cognitive Neuroscience view of perception</h4>
+
+
+            <h3><em>What about Qualia?</em></h3>
+
+
+            <p>
+            The Cognitive Neuroscience view of perception focuses on the neural mechanisms underlying perception. However, it doesn't provide a clear explanation for why perception goes hand in hand with conscious experience. 
+            </p>
+            <p>
+            Qualia refers to the qualities of perception that lie completely within our minds and can't be deduced from knowledge about our environment, such as the sensation of pain, the taste of chocolate, or the colour red.
+            </p>
+            <p>
+            Imagine a person who has never tasted chocolate before, but has read a detailed scientific description of its chemical composition and flavour profile. Despite this knowledge, they cannot truly understand the subjective experience of what it is like to taste chocolate until they actually try it for themselves. These experiences are subjective and cannot be fully explained in terms of physical processes alone.
+            </p>
+            `,
+            "implications": `
+
+            <h2>Perception</h2>
+
+            <p>
+            <strong>You hold most closely to the Cognitive Neuroscience view of perception. </strong>
+            </p>
+            <p>            
+            This theory asserts that perception involves the operation of neural processes in the brain and that it can be studied using neuroscientific methods. Some famous thinkers associated with this theory include David Hubel and Torsten Wiesel.
+            </p>
+            <p>
+
+                Hubel and Wiesel discovered that the visual system is organized into a hierarchy of processing stages that extract increasingly complex features of the visual input. They argued that perception is based on the activity of specialized neurons that are tuned to specific features of the environment.
+            </p>
+            <p>
+
+                The cognitive neuroscience view of perception also involves the use of neuroimaging techniques, such as fMRI and EEG, to study the neural correlates of perception and to understand how different brain regions contribute to perception.
+            </p>
+            `
+            }
+            ],
+            "4":[
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            },
+            {
+            "answer":`
+            
+            `,
+            "description": `
+
+            `,
+            "challenges":`
+
+            `,
+            "implications": `
+
+            `
+            }
+
+            ]
+            // Add more questions as needed
+        };
+
+        const selectedImplications = {};
+
+        function scrollToSection(sectionNumber) {
+            // Hide all section containers
+            const sectionContainers = document.querySelectorAll('.section-container');
+            sectionContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+
+            // Show the target section container and scroll to it
+            const targetSection = document.getElementById(`section-${sectionNumber}`);
+            targetSection.style.display = 'block';
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function toggleCollapse(el) {
+            // Get all content elements
+            const allContent = document.querySelectorAll('.content');
+
+            // Collapse all other content elements
+            allContent.forEach(content => {
+                if (content !== el.nextElementSibling) {
+                    content.style.display = 'none';
+                }
+            });
+
+            // Toggle the display of the selected content element
+            el.nextElementSibling.style.display = el.nextElementSibling.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function showChallenges(question, answerIndex) {
+            // Hide all other challenges
+            const allChallenges = document.querySelectorAll(`.challenges`);
+            allChallenges.forEach(challenge => {
+                challenge.style.display = 'none';
+            });
+
+            // Show the selected challenge
+            const challenges = document.getElementById(`challenges-${question}-${answerIndex}`);
+            challenges.style.display = 'block';
+        }
+
+
+        function selectChoice(question, answerIndex) {
+            selectedImplications[question] = questionData[question][answerIndex].implications;
+            localStorage.setItem(`answer_${question}_${answerIndex}`, 'true');
+            updateResults();
+        }
+
+        function updateResults() {
+            const resultsContent = Object.values(selectedImplications).map(implication => `
+                <div>${implication}</div>
+            `).join('');
+            document.getElementById('results-content').innerHTML = resultsContent;
+        }
+
+        function renderQuestions() {
+            const question1Answers = questionData["1"].map((item, index) => `
+                <div class="answer-container">
+                    <div class="collapse" onclick="toggleCollapse(this)">
+                        <span class="answer-text">${item.answer}</span>
+                    </div>
+                    <div class="content">
+                        ${item.description} 
+                        <button onclick="showChallenges(1, ${index}); scrollToSection(3)">This seems like me</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-1-answers').innerHTML = question1Answers;
+
+            const question1Challenges = questionData["1"].map((item, index) => `
+                <div id="challenges-1-${index}" class="challenges">
+                  <span class="answer-text"><center><h2>${item.answer}</h2></center></span>
+                  <center><h3>But have you considered..?</h3></center>
+                    <div>
+                        <br>
+                        ${item.challenges}
+                        <br>
+                        <center><button onclick="selectChoice(1, ${index}); scrollToSection(4)">Yes that's me!</button></center>
+                        <center><button onclick="scrollToSection(2)">I'd like to make a different choice</button></center>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-1-challenges').innerHTML = question1Challenges;
+
+
+            const question2Answers = questionData["2"].map((item, index) => `
+                <div class="answer-container">
+                    <div class="collapse" onclick="toggleCollapse(this)">
+                        <span class="answer-text"><strong>${item.answer}</strong></div></span>
+                    <div class="content">
+                        ${item.description}
+                        <button onclick="showChallenges(2, ${index}); scrollToSection(6)">This seems like me</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-2-answers').innerHTML = question2Answers;
+
+            const question2Challenges = questionData["2"].map((item, index) => `
+                <div id="challenges-2-${index}" class="challenges">
+                    <span class="answer-text"><center><h2>${item.answer}</h2></center></span>
+                    <center><h3>But have you considered..?</h3></center>
+                    <div>
+                        <br>
+                        ${item.challenges}
+                        <br>
+                        <center><button onclick="selectChoice(2, ${index}); scrollToSection(7)">Yes that's me!</button></center>
+                        <center><button onclick="scrollToSection(5)">I'd like to make a different choice</button></center>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-2-challenges').innerHTML = question2Challenges;
+
+            const question3Answers = questionData["3"].map((item, index) => `
+                <div class="answer-container">    
+                    <div class="collapse" onclick="toggleCollapse(this)">
+                        <span class="answer-text"><strong>${item.answer}</strong></div></span>
+                        <div class="content">
+                            ${item.description} 
+                            <button onclick="showChallenges(3, ${index}); scrollToSection(9)">This seems like me</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-3-answers').innerHTML = question3Answers;
+
+            const question3Challenges = questionData["3"].map((item, index) => `
+                <div id="challenges-3-${index}" class="challenges">
+                    <span class="answer-text"><center><h2>${item.answer}</h2></center></span>
+                    <center><h3>But have you considered..?</h3></center>
+                    <div>
+                        <br>
+                        ${item.challenges}
+                        <br>
+                        <center><button onclick="selectChoice(3, ${index}); scrollToSection(10)">Yes that's me!</button></center>
+                        <center><button onclick="scrollToSection(8)">I'd like to make a different choice</button></center>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('question-3-challenges').innerHTML = question3Challenges;
+
+
+            // Add more questions as needed
+        }
+
+        renderQuestions();
+        scrollToSection(1);
+    </script>
+</body>
+</html>
+
