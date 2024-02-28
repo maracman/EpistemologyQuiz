@@ -1,9 +1,9 @@
 This Github hosts the [MyEpistemology.com](myepistemology.com) quiz. 
 
-This quiz is designed as an educational tool, based on evidence that increased deep-epistemological uncertainty correlates with academic success — argued in the paper included titled "Promoting Knowledge Uncertainty: An Educational Intervention Through Philosophical Inquiry"
-This paper is included in the hosted files.
+This quiz is designed as an educational tool, based on evidence that increased epistemological uncertainty correlates with academic success — argued in the paper included titled "Promoting Knowledge Uncertainty: An Educational Intervention Through Philosophical Inquiry"
+This paper is included in the hosted files.  
 
-If you intend to use this tool as an educational resource please encourage students to write down their thoughts after reading each big question and or reading through the possible responses. This is important for proper querying of our assumed beleifs. 
+If you intend to use this tool as an educational resource, please encourage students to write down their thoughts after reading each big question and or reading through the possible responses. This is important for proper querying of our assumed beliefs. 
 
 The quiz follows the format below:  
 The student is presented with an epistemological topic and asked to discuss or think about it using a scaffold of four questions to guide the discussion.
